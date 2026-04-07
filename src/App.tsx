@@ -10,6 +10,7 @@ export default function App() {
 
   const [results, setResults] = useState<SearchHit[]>([])
   const [total, setTotal] = useState<number | null>(null)
+  const [combinedFromRelatedTerms, setCombinedFromRelatedTerms] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -33,17 +34,23 @@ export default function App() {
       setLoading(true)
       setError(null)
       try {
-        const { results: next, total: t } = await searchSpecies(debounced, {
+        const {
+          results: next,
+          total: t,
+          combinedFromRelatedTerms: merged,
+        } = await searchSpecies(debounced, {
           signal: ac.signal,
           limit: 50,
         })
         if (ac.signal.aborted) return
         setResults(next)
         setTotal(t)
+        setCombinedFromRelatedTerms(merged)
       } catch (e: unknown) {
         if (e instanceof DOMException && e.name === 'AbortError') return
         setResults([])
         setTotal(null)
+        setCombinedFromRelatedTerms(false)
         setError(e instanceof Error ? e.message : 'Request failed')
       } finally {
         if (!ac.signal.aborted) setLoading(false)
@@ -77,7 +84,9 @@ export default function App() {
           >
             ChecklistBank
           </a>{' '}
-          (vernacular + scientific names, rank species).
+          (vernacular + scientific names, rank species). Colloquial words like
+          &ldquo;cow&rdquo; are expanded (e.g. cattle) when COL uses different
+          English labels.
         </p>
       </header>
 
@@ -123,6 +132,9 @@ export default function App() {
           {displayTotal} match{displayTotal === 1 ? '' : 'es'}
           {displayResults.length < displayTotal
             ? ` (showing first ${displayResults.length})`
+            : ''}
+          {combinedFromRelatedTerms
+            ? ' — merged with related search terms for common-name coverage'
             : ''}
         </p>
       )}

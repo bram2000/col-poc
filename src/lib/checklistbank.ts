@@ -1,5 +1,18 @@
 const API_BASE = 'https://api.checklistbank.org'
 
+/**
+ * COL vernacular coverage often uses formal English ("domesticated cattle") rather
+ * than colloquial one-word names ("cow"). Substring search for `cow` therefore
+ * hits "Sea Cow", "cow tick", etc., but not Bos taurus. We add extra terms that
+ * map to the same intent and merge results (synonym terms are searched first so
+ * good hits surface before noisy substring matches).
+ */
+const SYNONYM_EXPANSIONS: Readonly<Record<string, readonly string[]>> = {
+  cow: ['cattle'],
+  pig: ['swine'],
+  hog: ['swine'],
+}
+
 export type SearchHit = {
   id: string
   scientificName: string
@@ -67,18 +80,20 @@ function mapRow(row: NameUsageRow): SearchHit {
   }
 }
 
-export async function searchSpecies(
-  query: string,
-  opts?: { signal?: AbortSignal; limit?: number },
-): Promise<{ results: SearchHit[]; total: number }> {
-  const q = query.trim()
-  if (!q) {
-    return { results: [], total: 0 }
-  }
+/** Synonym terms first, then the literal user query; deduped. */
+function orderedSearchTerms(userQuery: string): string[] {
+  const q = userQuery.trim()
+  if (!q) return []
+  const extra = SYNONYM_EXPANSIONS[q.toLowerCase()] ?? []
+  return [...new Set([...extra, q])]
+}
 
-  const datasetKey = import.meta.env.VITE_COL_DATASET ?? '3LR'
-  const limit = opts?.limit ?? 50
-
+async function fetchNameUsagePage(
+  datasetKey: string,
+  q: string,
+  limit: number,
+  signal: AbortSignal | undefined,
+): Promise<SearchResponse> {
   const url = new URL(`${API_BASE}/dataset/${encodeURIComponent(datasetKey)}/nameusage/search`)
   url.searchParams.set('q', q)
   url.searchParams.append('content', 'VERNACULAR_NAME')
@@ -86,18 +101,63 @@ export async function searchSpecies(
   url.searchParams.set('rank', 'species')
   url.searchParams.set('limit', String(limit))
 
-  const res = await fetch(url, { signal: opts?.signal })
+  const res = await fetch(url, { signal })
   if (!res.ok) {
     const text = await res.text()
     throw new Error(
       `ChecklistBank request failed (${res.status}): ${text.slice(0, 200)}`,
     )
   }
+  return (await res.json()) as SearchResponse
+}
 
-  const data = (await res.json()) as SearchResponse
-  const rows = data.result ?? []
+export async function searchSpecies(
+  query: string,
+  opts?: { signal?: AbortSignal; limit?: number },
+): Promise<{
+  results: SearchHit[]
+  total: number
+  /** True when extra terms (e.g. cattle for cow) were merged in */
+  combinedFromRelatedTerms: boolean
+}> {
+  const q = query.trim()
+  if (!q) {
+    return { results: [], total: 0, combinedFromRelatedTerms: false }
+  }
+
+  const datasetKey = import.meta.env.VITE_COL_DATASET ?? '3LR'
+  const maxResults = opts?.limit ?? 50
+  const terms = orderedSearchTerms(q)
+  const combinedFromRelatedTerms = terms.length > 1
+
+  const perTermLimit =
+    terms.length > 1 ? Math.max(15, Math.ceil(maxResults / terms.length)) : maxResults
+
+  const pages = await Promise.all(
+    terms.map((term) =>
+      fetchNameUsagePage(datasetKey, term, perTermLimit, opts?.signal),
+    ),
+  )
+
+  const seen = new Set<string>()
+  const merged: NameUsageRow[] = []
+
+  for (let i = 0; i < terms.length; i++) {
+    const rows = pages[i]?.result ?? []
+    for (const row of rows) {
+      if (seen.has(row.id)) continue
+      seen.add(row.id)
+      merged.push(row)
+      if (merged.length >= maxResults) break
+    }
+    if (merged.length >= maxResults) break
+  }
+
+  const primaryPageTotal = pages[terms.length - 1]?.total ?? merged.length
+
   return {
-    results: rows.map(mapRow),
-    total: data.total ?? rows.length,
+    results: merged.map(mapRow),
+    total: combinedFromRelatedTerms ? merged.length : primaryPageTotal,
+    combinedFromRelatedTerms,
   }
 }
