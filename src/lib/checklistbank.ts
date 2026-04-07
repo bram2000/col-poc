@@ -64,6 +64,64 @@ function englishVernaculars(names: Vernacular[] | undefined): string[] {
   return [...new Set(eng.map((v) => v.name).filter(Boolean))]
 }
 
+function normalizeMatch(s: string): string {
+  return s.trim().toLowerCase().replace(/\s+/g, ' ')
+}
+
+/**
+ * Higher = better match to the user query. ChecklistBank's default order is
+ * index relevance (often scientific-name token hits), so we re-rank to put
+ * exact English common names and clear phrase matches first.
+ */
+function rankNameUsageMatch(query: string, row: NameUsageRow): number {
+  const q = normalizeMatch(query)
+  if (!q) return 0
+
+  let best = 0
+
+  const scientific =
+    row.usage?.name?.scientificName ?? row.usage?.label ?? ''
+  const sci = normalizeMatch(scientific)
+  if (sci && sci === q) best = Math.max(best, 950)
+  else if (sci && (sci.startsWith(q + ' ') || sci === q)) best = Math.max(best, 700)
+
+  const eng = englishVernaculars(row.vernacularNames).map(normalizeMatch)
+  for (const n of eng) {
+    if (!n) continue
+    if (n === q) best = Math.max(best, 1000)
+    else if (n.startsWith(q + ' ') || n.startsWith(q + ',')) best = Math.max(best, 920)
+    else if (n.includes(q)) best = Math.max(best, 860)
+  }
+
+  if (best >= 860) return best
+
+  const words = q.split(' ').filter(Boolean)
+  if (words.length > 1) {
+    for (const n of eng) {
+      let pos = 0
+      let ok = true
+      for (const w of words) {
+        const j = n.indexOf(w, pos)
+        if (j < 0) {
+          ok = false
+          break
+        }
+        pos = j + w.length
+      }
+      if (ok) best = Math.max(best, 820)
+    }
+  }
+
+  for (const w of words) {
+    if (w.length < 4) continue
+    for (const n of eng) {
+      if (n === w) best = Math.max(best, 400)
+    }
+  }
+
+  return best
+}
+
 function mapRow(row: NameUsageRow): SearchHit {
   const u = row.usage
   const n = u?.name
@@ -130,8 +188,10 @@ export async function searchSpecies(
   const terms = orderedSearchTerms(q)
   const combinedFromRelatedTerms = terms.length > 1
 
-  const perTermLimit =
+  const basePerTerm =
     terms.length > 1 ? Math.max(15, Math.ceil(maxResults / terms.length)) : maxResults
+  /** Fetch more than we display so re-ranking can promote exact vernacular hits. */
+  const perTermLimit = Math.min(200, Math.max(basePerTerm, terms.length === 1 ? 100 : 40))
 
   const pages = await Promise.all(
     terms.map((term) =>
@@ -148,15 +208,21 @@ export async function searchSpecies(
       if (seen.has(row.id)) continue
       seen.add(row.id)
       merged.push(row)
-      if (merged.length >= maxResults) break
     }
-    if (merged.length >= maxResults) break
   }
 
-  const primaryPageTotal = pages[terms.length - 1]?.total ?? merged.length
+  const indexed = merged.map((row, index) => ({
+    row,
+    index,
+    score: rankNameUsageMatch(q, row),
+  }))
+  indexed.sort((a, b) => b.score - a.score || a.index - b.index)
+  const sorted = indexed.map((x) => x.row).slice(0, maxResults)
+
+  const primaryPageTotal = pages[terms.length - 1]?.total ?? sorted.length
 
   return {
-    results: merged.map(mapRow),
+    results: sorted.map(mapRow),
     total: combinedFromRelatedTerms ? merged.length : primaryPageTotal,
     combinedFromRelatedTerms,
   }
