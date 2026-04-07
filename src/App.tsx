@@ -28,10 +28,11 @@ export default function App() {
     <div className="mx-auto max-w-2xl px-4 py-12">
       <header className="mb-10 text-center">
         <h1 className="text-balance text-3xl font-semibold tracking-tight text-zinc-900 dark:text-zinc-50 sm:text-4xl">
-          Animal name lookup
+          Animal taxonomy lookup
         </h1>
         <p className="mt-2 text-pretty text-zinc-600 dark:text-zinc-400">
-          Type a common name — matches include fuzzy spelling and aliases.
+          Search by common name, alias, or Latin family / genus / species. Results
+          show the binomial and classification.
         </p>
       </header>
 
@@ -42,8 +43,8 @@ export default function App() {
           type="search"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="e.g. elephant, dog, elphant…"
-          aria-label="Search animals by common name"
+          placeholder="e.g. elephant, Canis, Felidae, elphant…"
+          aria-label="Search by common name or Latin taxonomy"
           autoComplete="off"
           spellCheck={false}
           className="w-full rounded-xl border border-zinc-200 bg-white px-4 py-3 text-base text-zinc-900 shadow-sm outline-none ring-zinc-400/30 transition placeholder:text-zinc-400 focus:border-zinc-300 focus:ring-4 dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100 dark:placeholder:text-zinc-500 dark:focus:border-zinc-600"
@@ -52,7 +53,7 @@ export default function App() {
 
       {!hasQuery && (
         <p className="mt-4 text-center text-sm text-zinc-500 dark:text-zinc-400">
-          Showing all names — start typing to filter.
+          Showing all species (Latin A–Z) — start typing to filter.
         </p>
       )}
 
@@ -70,16 +71,27 @@ export default function App() {
           results.map((animal) => (
             <li
               key={animal.name}
-              className="flex flex-col gap-0.5 rounded-xl border border-zinc-200 bg-white px-4 py-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
+              className="flex flex-col gap-1 rounded-xl border border-zinc-200 bg-white px-4 py-3 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
             >
-              <span className="font-medium text-zinc-900 dark:text-zinc-50">
-                {animal.name}
+              <span
+                className="font-serif text-lg italic text-zinc-900 dark:text-zinc-50"
+                lang="la"
+              >
+                {animal.species}
               </span>
-              {animal.aliases.length > 0 && (
-                <span className="text-sm text-zinc-500 dark:text-zinc-400">
-                  Also: {animal.aliases.join(', ')}
+              <span className="text-sm text-zinc-600 dark:text-zinc-300">
+                <span className="font-medium text-zinc-800 dark:text-zinc-200">
+                  {animal.genus}
                 </span>
-              )}
+                <span className="text-zinc-400 dark:text-zinc-500"> · </span>
+                {animal.family}
+              </span>
+              <span className="text-sm text-zinc-500 dark:text-zinc-400">
+                Common: {animal.name}
+                {animal.aliases.length > 0
+                  ? ` (${animal.aliases.join(', ')})`
+                  : ''}
+              </span>
             </li>
           ))
         )}

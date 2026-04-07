@@ -1,85 +1,583 @@
 [
-  { "name": "Ant", "aliases": [] },
-  { "name": "Badger", "aliases": ["Brock"] },
-  { "name": "Bat", "aliases": [] },
-  { "name": "Bear", "aliases": ["Grizzly", "Brown bear"] },
-  { "name": "Bee", "aliases": ["Honeybee"] },
-  { "name": "Beetle", "aliases": [] },
-  { "name": "Bird", "aliases": ["Avian"] },
-  { "name": "Buffalo", "aliases": ["Bison"] },
-  { "name": "Butterfly", "aliases": [] },
-  { "name": "Camel", "aliases": ["Dromedary"] },
-  { "name": "Cat", "aliases": ["Feline", "Domestic cat"] },
-  { "name": "Chicken", "aliases": ["Hen", "Rooster"] },
-  { "name": "Chimpanzee", "aliases": ["Chimp"] },
-  { "name": "Cow", "aliases": ["Cattle", "Bovine"] },
-  { "name": "Crab", "aliases": [] },
-  { "name": "Crocodile", "aliases": ["Croc"] },
-  { "name": "Deer", "aliases": ["Stag", "Doe"] },
-  { "name": "Dog", "aliases": ["Canine", "Hound"] },
-  { "name": "Dolphin", "aliases": [] },
-  { "name": "Donkey", "aliases": ["Ass"] },
-  { "name": "Duck", "aliases": [] },
-  { "name": "Eagle", "aliases": [] },
-  { "name": "Eel", "aliases": [] },
-  { "name": "Elephant", "aliases": [] },
-  { "name": "Fish", "aliases": [] },
-  { "name": "Flamingo", "aliases": [] },
-  { "name": "Fox", "aliases": ["Vulpine"] },
-  { "name": "Frog", "aliases": ["Toad"] },
-  { "name": "Giraffe", "aliases": [] },
-  { "name": "Goat", "aliases": [] },
-  { "name": "Goose", "aliases": [] },
-  { "name": "Gorilla", "aliases": [] },
-  { "name": "Hamster", "aliases": [] },
-  { "name": "Hawk", "aliases": [] },
-  { "name": "Hedgehog", "aliases": [] },
-  { "name": "Hippopotamus", "aliases": ["Hippo"] },
-  { "name": "Horse", "aliases": ["Equine", "Stallion", "Mare"] },
-  { "name": "Jellyfish", "aliases": [] },
-  { "name": "Kangaroo", "aliases": ["Roo"] },
-  { "name": "Koala", "aliases": [] },
-  { "name": "Ladybird", "aliases": ["Ladybug"] },
-  { "name": "Leopard", "aliases": [] },
-  { "name": "Lion", "aliases": [] },
-  { "name": "Lizard", "aliases": [] },
-  { "name": "Llama", "aliases": [] },
-  { "name": "Lobster", "aliases": [] },
-  { "name": "Monkey", "aliases": ["Primate"] },
-  { "name": "Mouse", "aliases": ["Rodent"] },
-  { "name": "Octopus", "aliases": [] },
-  { "name": "Ostrich", "aliases": [] },
-  { "name": "Otter", "aliases": [] },
-  { "name": "Owl", "aliases": [] },
-  { "name": "Panda", "aliases": [] },
-  { "name": "Parrot", "aliases": [] },
-  { "name": "Peacock", "aliases": [] },
-  { "name": "Penguin", "aliases": [] },
-  { "name": "Pig", "aliases": ["Swine", "Hog"] },
-  { "name": "Pigeon", "aliases": [] },
-  { "name": "Rabbit", "aliases": ["Bunny", "Hare"] },
-  { "name": "Raccoon", "aliases": [] },
-  { "name": "Rat", "aliases": [] },
-  { "name": "Rhinoceros", "aliases": ["Rhino"] },
-  { "name": "Salmon", "aliases": [] },
-  { "name": "Scorpion", "aliases": [] },
-  { "name": "Seal", "aliases": [] },
-  { "name": "Shark", "aliases": [] },
-  { "name": "Sheep", "aliases": ["Ewe", "Lamb"] },
-  { "name": "Shrimp", "aliases": ["Prawn"] },
-  { "name": "Snail", "aliases": [] },
-  { "name": "Snake", "aliases": ["Serpent"] },
-  { "name": "Spider", "aliases": [] },
-  { "name": "Squirrel", "aliases": [] },
-  { "name": "Starfish", "aliases": ["Sea star"] },
-  { "name": "Swan", "aliases": [] },
-  { "name": "Tiger", "aliases": [] },
-  { "name": "Tortoise", "aliases": [] },
-  { "name": "Turkey", "aliases": [] },
-  { "name": "Turtle", "aliases": [] },
-  { "name": "Walrus", "aliases": [] },
-  { "name": "Whale", "aliases": [] },
-  { "name": "Wolf", "aliases": ["Lupine"] },
-  { "name": "Worm", "aliases": ["Earthworm"] },
-  { "name": "Zebra", "aliases": [] }
+  {
+    "name": "Ant",
+    "aliases": [],
+    "family": "Formicidae",
+    "genus": "Lasius",
+    "species": "Lasius niger"
+  },
+  {
+    "name": "Badger",
+    "aliases": ["Brock"],
+    "family": "Mustelidae",
+    "genus": "Meles",
+    "species": "Meles meles"
+  },
+  {
+    "name": "Bat",
+    "aliases": [],
+    "family": "Vespertilionidae",
+    "genus": "Myotis",
+    "species": "Myotis lucifugus"
+  },
+  {
+    "name": "Bear",
+    "aliases": ["Grizzly", "Brown bear"],
+    "family": "Ursidae",
+    "genus": "Ursus",
+    "species": "Ursus arctos"
+  },
+  {
+    "name": "Bee",
+    "aliases": ["Honeybee"],
+    "family": "Apidae",
+    "genus": "Apis",
+    "species": "Apis mellifera"
+  },
+  {
+    "name": "Beetle",
+    "aliases": [],
+    "family": "Scarabaeidae",
+    "genus": "Popillia",
+    "species": "Popillia japonica"
+  },
+  {
+    "name": "Bird",
+    "aliases": ["Avian"],
+    "family": "Passeridae",
+    "genus": "Passer",
+    "species": "Passer domesticus"
+  },
+  {
+    "name": "Buffalo",
+    "aliases": ["Bison"],
+    "family": "Bovidae",
+    "genus": "Bison",
+    "species": "Bison bison"
+  },
+  {
+    "name": "Butterfly",
+    "aliases": [],
+    "family": "Nymphalidae",
+    "genus": "Danaus",
+    "species": "Danaus plexippus"
+  },
+  {
+    "name": "Camel",
+    "aliases": ["Dromedary"],
+    "family": "Camelidae",
+    "genus": "Camelus",
+    "species": "Camelus dromedarius"
+  },
+  {
+    "name": "Cat",
+    "aliases": ["Feline", "Domestic cat"],
+    "family": "Felidae",
+    "genus": "Felis",
+    "species": "Felis catus"
+  },
+  {
+    "name": "Chicken",
+    "aliases": ["Hen", "Rooster"],
+    "family": "Phasianidae",
+    "genus": "Gallus",
+    "species": "Gallus gallus domesticus"
+  },
+  {
+    "name": "Chimpanzee",
+    "aliases": ["Chimp"],
+    "family": "Hominidae",
+    "genus": "Pan",
+    "species": "Pan troglodytes"
+  },
+  {
+    "name": "Cow",
+    "aliases": ["Cattle", "Bovine"],
+    "family": "Bovidae",
+    "genus": "Bos",
+    "species": "Bos taurus"
+  },
+  {
+    "name": "Crab",
+    "aliases": [],
+    "family": "Cancridae",
+    "genus": "Cancer",
+    "species": "Cancer pagurus"
+  },
+  {
+    "name": "Crocodile",
+    "aliases": ["Croc"],
+    "family": "Crocodylidae",
+    "genus": "Crocodylus",
+    "species": "Crocodylus niloticus"
+  },
+  {
+    "name": "Deer",
+    "aliases": ["Stag", "Doe"],
+    "family": "Cervidae",
+    "genus": "Cervus",
+    "species": "Cervus elaphus"
+  },
+  {
+    "name": "Dog",
+    "aliases": ["Canine", "Hound"],
+    "family": "Canidae",
+    "genus": "Canis",
+    "species": "Canis familiaris"
+  },
+  {
+    "name": "Dolphin",
+    "aliases": [],
+    "family": "Delphinidae",
+    "genus": "Tursiops",
+    "species": "Tursiops truncatus"
+  },
+  {
+    "name": "Donkey",
+    "aliases": ["Ass"],
+    "family": "Equidae",
+    "genus": "Equus",
+    "species": "Equus africanus asinus"
+  },
+  {
+    "name": "Duck",
+    "aliases": [],
+    "family": "Anatidae",
+    "genus": "Anas",
+    "species": "Anas platyrhynchos"
+  },
+  {
+    "name": "Eagle",
+    "aliases": [],
+    "family": "Accipitridae",
+    "genus": "Aquila",
+    "species": "Aquila chrysaetos"
+  },
+  {
+    "name": "Eel",
+    "aliases": [],
+    "family": "Anguillidae",
+    "genus": "Anguilla",
+    "species": "Anguilla anguilla"
+  },
+  {
+    "name": "Elephant",
+    "aliases": [],
+    "family": "Elephantidae",
+    "genus": "Loxodonta",
+    "species": "Loxodonta africana"
+  },
+  {
+    "name": "Fish",
+    "aliases": [],
+    "family": "Cyprinidae",
+    "genus": "Danio",
+    "species": "Danio rerio"
+  },
+  {
+    "name": "Flamingo",
+    "aliases": [],
+    "family": "Phoenicopteridae",
+    "genus": "Phoenicopterus",
+    "species": "Phoenicopterus roseus"
+  },
+  {
+    "name": "Fox",
+    "aliases": ["Vulpine"],
+    "family": "Canidae",
+    "genus": "Vulpes",
+    "species": "Vulpes vulpes"
+  },
+  {
+    "name": "Frog",
+    "aliases": ["Toad"],
+    "family": "Ranidae",
+    "genus": "Rana",
+    "species": "Rana temporaria"
+  },
+  {
+    "name": "Giraffe",
+    "aliases": [],
+    "family": "Giraffidae",
+    "genus": "Giraffa",
+    "species": "Giraffa camelopardalis"
+  },
+  {
+    "name": "Goat",
+    "aliases": [],
+    "family": "Bovidae",
+    "genus": "Capra",
+    "species": "Capra hircus"
+  },
+  {
+    "name": "Goose",
+    "aliases": [],
+    "family": "Anatidae",
+    "genus": "Anser",
+    "species": "Anser anser"
+  },
+  {
+    "name": "Gorilla",
+    "aliases": [],
+    "family": "Hominidae",
+    "genus": "Gorilla",
+    "species": "Gorilla gorilla"
+  },
+  {
+    "name": "Hamster",
+    "aliases": [],
+    "family": "Cricetidae",
+    "genus": "Mesocricetus",
+    "species": "Mesocricetus auratus"
+  },
+  {
+    "name": "Hawk",
+    "aliases": [],
+    "family": "Accipitridae",
+    "genus": "Accipiter",
+    "species": "Accipiter gentilis"
+  },
+  {
+    "name": "Hedgehog",
+    "aliases": [],
+    "family": "Erinaceidae",
+    "genus": "Erinaceus",
+    "species": "Erinaceus europaeus"
+  },
+  {
+    "name": "Hippopotamus",
+    "aliases": ["Hippo"],
+    "family": "Hippopotamidae",
+    "genus": "Hippopotamus",
+    "species": "Hippopotamus amphibius"
+  },
+  {
+    "name": "Horse",
+    "aliases": ["Equine", "Stallion", "Mare"],
+    "family": "Equidae",
+    "genus": "Equus",
+    "species": "Equus caballus"
+  },
+  {
+    "name": "Jellyfish",
+    "aliases": [],
+    "family": "Ulmaridae",
+    "genus": "Aurelia",
+    "species": "Aurelia aurita"
+  },
+  {
+    "name": "Kangaroo",
+    "aliases": ["Roo"],
+    "family": "Macropodidae",
+    "genus": "Macropus",
+    "species": "Macropus giganteus"
+  },
+  {
+    "name": "Koala",
+    "aliases": [],
+    "family": "Phascolarctidae",
+    "genus": "Phascolarctos",
+    "species": "Phascolarctos cinereus"
+  },
+  {
+    "name": "Ladybird",
+    "aliases": ["Ladybug"],
+    "family": "Coccinellidae",
+    "genus": "Coccinella",
+    "species": "Coccinella septempunctata"
+  },
+  {
+    "name": "Leopard",
+    "aliases": [],
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera pardus"
+  },
+  {
+    "name": "Lion",
+    "aliases": [],
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera leo"
+  },
+  {
+    "name": "Lizard",
+    "aliases": [],
+    "family": "Lacertidae",
+    "genus": "Lacerta",
+    "species": "Lacerta agilis"
+  },
+  {
+    "name": "Llama",
+    "aliases": [],
+    "family": "Camelidae",
+    "genus": "Lama",
+    "species": "Lama glama"
+  },
+  {
+    "name": "Lobster",
+    "aliases": [],
+    "family": "Nephropidae",
+    "genus": "Homarus",
+    "species": "Homarus americanus"
+  },
+  {
+    "name": "Monkey",
+    "aliases": ["Primate"],
+    "family": "Cercopithecidae",
+    "genus": "Macaca",
+    "species": "Macaca mulatta"
+  },
+  {
+    "name": "Mouse",
+    "aliases": ["Rodent"],
+    "family": "Muridae",
+    "genus": "Mus",
+    "species": "Mus musculus"
+  },
+  {
+    "name": "Octopus",
+    "aliases": [],
+    "family": "Octopodidae",
+    "genus": "Octopus",
+    "species": "Octopus vulgaris"
+  },
+  {
+    "name": "Ostrich",
+    "aliases": [],
+    "family": "Struthionidae",
+    "genus": "Struthio",
+    "species": "Struthio camelus"
+  },
+  {
+    "name": "Otter",
+    "aliases": [],
+    "family": "Mustelidae",
+    "genus": "Lutra",
+    "species": "Lutra lutra"
+  },
+  {
+    "name": "Owl",
+    "aliases": [],
+    "family": "Strigidae",
+    "genus": "Strix",
+    "species": "Strix aluco"
+  },
+  {
+    "name": "Panda",
+    "aliases": [],
+    "family": "Ursidae",
+    "genus": "Ailuropoda",
+    "species": "Ailuropoda melanoleuca"
+  },
+  {
+    "name": "Parrot",
+    "aliases": [],
+    "family": "Psittacidae",
+    "genus": "Psittacus",
+    "species": "Psittacus erithacus"
+  },
+  {
+    "name": "Peacock",
+    "aliases": [],
+    "family": "Phasianidae",
+    "genus": "Pavo",
+    "species": "Pavo cristatus"
+  },
+  {
+    "name": "Penguin",
+    "aliases": [],
+    "family": "Spheniscidae",
+    "genus": "Aptenodytes",
+    "species": "Aptenodytes forsteri"
+  },
+  {
+    "name": "Pig",
+    "aliases": ["Swine", "Hog"],
+    "family": "Suidae",
+    "genus": "Sus",
+    "species": "Sus scrofa domesticus"
+  },
+  {
+    "name": "Pigeon",
+    "aliases": [],
+    "family": "Columbidae",
+    "genus": "Columba",
+    "species": "Columba livia"
+  },
+  {
+    "name": "Rabbit",
+    "aliases": ["Bunny", "Hare"],
+    "family": "Leporidae",
+    "genus": "Oryctolagus",
+    "species": "Oryctolagus cuniculus"
+  },
+  {
+    "name": "Raccoon",
+    "aliases": [],
+    "family": "Procyonidae",
+    "genus": "Procyon",
+    "species": "Procyon lotor"
+  },
+  {
+    "name": "Rat",
+    "aliases": [],
+    "family": "Muridae",
+    "genus": "Rattus",
+    "species": "Rattus norvegicus"
+  },
+  {
+    "name": "Rhinoceros",
+    "aliases": ["Rhino"],
+    "family": "Rhinocerotidae",
+    "genus": "Diceros",
+    "species": "Diceros bicornis"
+  },
+  {
+    "name": "Salmon",
+    "aliases": [],
+    "family": "Salmonidae",
+    "genus": "Salmo",
+    "species": "Salmo salar"
+  },
+  {
+    "name": "Scorpion",
+    "aliases": [],
+    "family": "Buthidae",
+    "genus": "Androctonus",
+    "species": "Androctonus australis"
+  },
+  {
+    "name": "Seal",
+    "aliases": [],
+    "family": "Phocidae",
+    "genus": "Phoca",
+    "species": "Phoca vitulina"
+  },
+  {
+    "name": "Shark",
+    "aliases": [],
+    "family": "Lamnidae",
+    "genus": "Carcharodon",
+    "species": "Carcharodon carcharias"
+  },
+  {
+    "name": "Sheep",
+    "aliases": ["Ewe", "Lamb"],
+    "family": "Bovidae",
+    "genus": "Ovis",
+    "species": "Ovis aries"
+  },
+  {
+    "name": "Shrimp",
+    "aliases": ["Prawn"],
+    "family": "Penaeidae",
+    "genus": "Penaeus",
+    "species": "Penaeus monodon"
+  },
+  {
+    "name": "Snail",
+    "aliases": [],
+    "family": "Helicidae",
+    "genus": "Helix",
+    "species": "Helix pomatia"
+  },
+  {
+    "name": "Snake",
+    "aliases": ["Serpent"],
+    "family": "Colubridae",
+    "genus": "Natrix",
+    "species": "Natrix natrix"
+  },
+  {
+    "name": "Spider",
+    "aliases": [],
+    "family": "Araneidae",
+    "genus": "Araneus",
+    "species": "Araneus diadematus"
+  },
+  {
+    "name": "Squirrel",
+    "aliases": [],
+    "family": "Sciuridae",
+    "genus": "Sciurus",
+    "species": "Sciurus vulgaris"
+  },
+  {
+    "name": "Starfish",
+    "aliases": ["Sea star"],
+    "family": "Asteriidae",
+    "genus": "Asterias",
+    "species": "Asterias rubens"
+  },
+  {
+    "name": "Swan",
+    "aliases": [],
+    "family": "Anatidae",
+    "genus": "Cygnus",
+    "species": "Cygnus olor"
+  },
+  {
+    "name": "Tiger",
+    "aliases": [],
+    "family": "Felidae",
+    "genus": "Panthera",
+    "species": "Panthera tigris"
+  },
+  {
+    "name": "Tortoise",
+    "aliases": [],
+    "family": "Testudinidae",
+    "genus": "Testudo",
+    "species": "Testudo graeca"
+  },
+  {
+    "name": "Turkey",
+    "aliases": [],
+    "family": "Phasianidae",
+    "genus": "Meleagris",
+    "species": "Meleagris gallopavo"
+  },
+  {
+    "name": "Turtle",
+    "aliases": [],
+    "family": "Cheloniidae",
+    "genus": "Chelonia",
+    "species": "Chelonia mydas"
+  },
+  {
+    "name": "Walrus",
+    "aliases": [],
+    "family": "Odobenidae",
+    "genus": "Odobenus",
+    "species": "Odobenus rosmarus"
+  },
+  {
+    "name": "Whale",
+    "aliases": [],
+    "family": "Balaenopteridae",
+    "genus": "Balaenoptera",
+    "species": "Balaenoptera musculus"
+  },
+  {
+    "name": "Wolf",
+    "aliases": ["Lupine"],
+    "family": "Canidae",
+    "genus": "Canis",
+    "species": "Canis lupus"
+  },
+  {
+    "name": "Worm",
+    "aliases": ["Earthworm"],
+    "family": "Lumbricidae",
+    "genus": "Lumbricus",
+    "species": "Lumbricus terrestris"
+  },
+  {
+    "name": "Zebra",
+    "aliases": [],
+    "family": "Equidae",
+    "genus": "Equus",
+    "species": "Equus quagga"
+  }
 ]
